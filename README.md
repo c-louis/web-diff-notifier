@@ -22,7 +22,7 @@ This project is simple python project to setup as a Cron Task to receive a mail 
 				* "PoI am the poli"  -> will match as identical
 				* "I am the polia" -> will match as identical
 				* "I am the pola" -> will not match as identical
-	* BE CAREFULL ABOUT LAST NEWLINE ADDED BY SOME FILES EDITOR
+	* BE CAREFULL ABOUT LAST NEWLINE ADDED BY SOME FILES EDITOR (If you have this problem you can remove the last newline with `truncate -s -1 to-find.wd`
 4. Make the CRON Task on your server
 	* Tutorial : https://phoenixnap.com/kb/set-up-cron-job-linux
 	* CRON format help : https://crontab.guru/
