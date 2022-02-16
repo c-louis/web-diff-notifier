@@ -21,7 +21,7 @@ def sendMail(url, contentToFind):
 	print('Mail Sended')
 
 
-def mail():
+def main():
 	contentToFind = ''
 	urlToSearch = ''
 	with open('to-find.wd') as tf:
