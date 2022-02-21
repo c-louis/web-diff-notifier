@@ -20,32 +20,36 @@ def sendMail(url, contentToFind):
 	yag.send(subject=subject, contents=content)
 	print('Mail Sended')
 
-
-def main():
-	contentToFind = ''
-	urlToSearch = ''
-	with open('to-find.wd') as tf:
-		urlToSearch = tf.readline().strip()
-		contentToFind = tf.read()
-
+def task(url, contentToFind):
 	print('__________ Will search on : __________')
-	print(urlToSearch)
+	print(url)
 	print('__________ Will try to find : __________')
 	print(contentToFind)
 
-	request = requests.get(urlToSearch)
+	request = requests.get(url)
 	if request.status_code != 200:
 		print(f'Request failed with status : {request.status_code}')
-		sys.exit(1)
-
+		return
 	result = request.text
-
 	res = result.find(contentToFind)
 	if res == -1:
-		print(f'Content changed ! {res}')
-		sendMail(urlToSearch, contentToFind)
+		print(f'Content changed ({url}) ! {res}')
+		sendMail(url, contentToFind)
 	else:
-		print(f'Found same content : {res}')
+		print(f'Found Same content ({url})')
+
+def main():
+	directory = os.path.dirname(os.path.realpath(__file__)) + '/to-find'
+	files = os.listdir(directory)
+	for file in files:
+		if file.endswith('.wd'):
+			contentToFind = ''
+			urlToSearch = ''
+			with open(directory + '/' + file) as tf:
+				urlToSearch = tf.readline().strip()
+				contentToFind = tf.read()
+			task(urlToSearch, contentToFind)
+
 
 if __name__=='__main__':
 	load_dotenv()
